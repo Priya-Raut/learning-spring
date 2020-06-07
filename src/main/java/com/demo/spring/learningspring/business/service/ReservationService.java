@@ -1,10 +1,13 @@
 package com.demo.spring.learningspring.business.service;
 
 import com.demo.spring.learningspring.business.domain.RoomReservation;
+import com.demo.spring.learningspring.data.entity.Guest;
 import com.demo.spring.learningspring.data.entity.Reservation;
+import com.demo.spring.learningspring.data.entity.Room;
 import com.demo.spring.learningspring.data.repository.GuestRepository;
 import com.demo.spring.learningspring.data.repository.ReservationRepository;
 import com.demo.spring.learningspring.data.repository.RoomRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Array;
@@ -18,13 +21,14 @@ public class ReservationService {
     private final GuestRepository guestRepository;
     private final ReservationRepository reservationRepository;
 
+    @Autowired
     public ReservationService(RoomRepository roomRepository, GuestRepository guestRepository, ReservationRepository reservationRepository) {
         this.roomRepository = roomRepository;
         this.guestRepository = guestRepository;
         this.reservationRepository = reservationRepository;
     }
 
-    List<RoomReservation> getRoomReservationForDate(Date date){
+    List<RoomReservation> getRoomReservationsForDate(Date date){
         // Output list of reservations by Date
         List<RoomReservation> roomReservations = new ArrayList<>();
         // Get List of all the reservations for given date
@@ -39,8 +43,14 @@ public class ReservationService {
             roomReservations.add(roomReservation);
         }
         //populate remaining specific details such as roomNumber, roomName, firstName, firstName
-        
-
+        for(RoomReservation roomReservation : roomReservations){
+           Room room =  this.roomRepository.findById(roomReservation.getRoomId()).get();
+           Guest guest = this.guestRepository.findById(roomReservation.getGuestId()).get();
+            roomReservation.setRoomName(room.getRoomName());
+            roomReservation.setRoomNumber(room.getRoomNumber());
+            roomReservation.setFirstName(guest.getFirstName());
+            roomReservation.setLastName(guest.getLastName());
+        }
         return roomReservations;
     }
 }
