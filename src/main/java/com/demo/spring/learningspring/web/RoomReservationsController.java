@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
-@RequestMapping(name="/reservations")
+@RequestMapping("/reservations")
 public class RoomReservationsController {
     private final ReservationService reservationService;
 
@@ -24,7 +24,7 @@ public class RoomReservationsController {
     }
 
     @GetMapping
-    public String getRoomReservations(@RequestParam(name="date", required=false)String dateString, Model model){
+    public String getReservations(@RequestParam(name="date", required=false)String dateString, Model model){
         //Convert the dateString we accepted in String form into Date form
         Date date = DateUtility.getDateFromDateString(dateString);
         List<RoomReservation> roomReservations = this.reservationService.getRoomReservationsForDate(date);
