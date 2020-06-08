@@ -28,27 +28,27 @@ public class ReservationService {
     }
 
     public List<RoomReservation> getRoomReservationsForDate(Date date){
-        // Output list of reservations by Date
-        List<RoomReservation> roomReservations = new ArrayList<>();
-        // Get List of all the reservations for given date
-        List<Reservation> reservations = this.reservationRepository.getReservationsByResDate(new java.sql.Date(date.getTime()));
-        //We got all the ids of room, guest, reservation for given date
-        for (Reservation reservation : reservations) {
+        Iterable<Room> rooms = this.roomRepository.findAll();
+        Map<Long, RoomReservation> roomReservationMap = new HashMap();
+        rooms.forEach(room -> {
             RoomReservation roomReservation = new RoomReservation();
-            roomReservation.setReservationId(reservation.getReservationId());
-            roomReservation.setGuestId(reservation.getGuestId());
-            roomReservation.setRoomId(reservation.getRoomId());
-            roomReservation.setDate(date);
-            roomReservations.add(roomReservation);
-        }
-        //populate remaining specific details such as roomNumber, roomName, firstName, firstName
-        for(RoomReservation roomReservation : roomReservations){
-           Room room =  this.roomRepository.findById(roomReservation.getRoomId()).get();
-           Guest guest = this.guestRepository.findById(roomReservation.getGuestId()).get();
+            roomReservation.setRoomId(room.getRoomId());
             roomReservation.setRoomName(room.getRoomName());
             roomReservation.setRoomNumber(room.getRoomNumber());
+            roomReservationMap.put(room.getRoomId(), roomReservation);
+        });
+        Iterable<Reservation> reservations = this.reservationRepository.getReservationsByResDate(new java.sql.Date(date.getTime()));
+        reservations.forEach(reservation -> {
+            RoomReservation roomReservation = roomReservationMap.get(reservation.getRoomId());
+            roomReservation.setDate(date);
+            Guest guest = this.guestRepository.findById(reservation.getGuestId()).get();
             roomReservation.setFirstName(guest.getFirstName());
             roomReservation.setLastName(guest.getLastName());
+            roomReservation.setGuestId(guest.getGuestId());
+        });
+        List<RoomReservation> roomReservations = new ArrayList<>();
+        for(Long id: roomReservationMap.keySet()){
+            roomReservations.add(roomReservationMap.get(id));
         }
         return roomReservations;
     }
