@@ -10,7 +10,6 @@ import com.demo.spring.learningspring.data.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 @Service
@@ -28,7 +27,7 @@ public class ReservationService {
         this.reservationRepository = reservationRepository;
     }
 
-    List<RoomReservation> getRoomReservationsForDate(Date date){
+    public List<RoomReservation> getRoomReservationsForDate(Date date){
         // Output list of reservations by Date
         List<RoomReservation> roomReservations = new ArrayList<>();
         // Get List of all the reservations for given date
