@@ -1,5 +1,9 @@
 # learning-spring
-A project created to learn basic concepts of Spring, a popular Java framework
+A project created to learn basic concepts of Spring, a popular Java framework. The project explores the out of box Spring solutions with almost, no configuration such as 
+<br> 1. Embedded Tomcat server
+<br> 2. Embedded/In-memory H2 database
+<br> 3. Thymeleaf Templating Engine (for mapping static content with dynamic data from model)
+<br> 4. Maven as a build automation tool
 
 ### Summery of Spring terminologies
 
