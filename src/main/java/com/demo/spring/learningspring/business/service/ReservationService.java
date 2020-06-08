@@ -15,7 +15,7 @@ import java.util.*;
 @Service
 public class ReservationService {
     //Need data from Tables, how to get data?
-    //Using our interface with DB i.e Respositories
+    //Using our interface with DB i.e Repositories
     private final RoomRepository roomRepository;
     private final GuestRepository guestRepository;
     private final ReservationRepository reservationRepository;
@@ -25,6 +25,15 @@ public class ReservationService {
         this.roomRepository = roomRepository;
         this.guestRepository = guestRepository;
         this.reservationRepository = reservationRepository;
+    }
+
+    public List<Guest> getAllGests(){
+        List<Guest> guests = new ArrayList<>();
+        Iterable<Guest> guestIterable = this.guestRepository.findAll();
+        for (Guest guest : guestIterable) {
+            guests.add(guest);
+        }
+        return guests;
     }
 
     public List<RoomReservation> getRoomReservationsForDate(Date date){
