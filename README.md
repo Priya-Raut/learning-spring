@@ -20,11 +20,16 @@ Inversion of control: A code from the library uses custom code.
 
 #### Dependency Injection
 DI is one of the forms of IOC. It is a technique using which object contruction and usages is separated.
-<br>Dependency/Service - A object to be used
-<brClient - It depends on the service
-<br>Injector - Created the service and inject into the client
+<br>Dependency/Service - A object of a class on which some other class depends
+<br>Client - It depends on the service
+<br>Injector - Creates the service and inject into the client
 This way client does not have to worry about creating the object. 
 It just have to use it. Abstraction!
+
+Benefits:
+ - Depeloper does not have to manage the object creation
+ - Testing becomes easy using mock object.
+ - Code becomes more readable.
 
 #### Repository
 An interface between database layer and Java layer. 
