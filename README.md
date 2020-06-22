@@ -15,10 +15,13 @@ Unlike EJB's which only holds state, getters and setters for that state.
 It is used to transfer the state across the application.
 
 #### Inversion of Control (IOC)
-Normal control: A custom code used the code from library.
-Inversion of control: A code from the library uses custom code.
+Normal control: 
+Programmer has to take control of object creation, managing application dependencies.
 
-#### Dependency Injection
+Inversion of control: 
+In this principle, control of object creation, managing application dependencies is moved from developer writing application to the framework itself. Hence, developing application becomes easy.
+
+#### Dependency Injection (DI)
 DI is one of the forms of IOC. It is a technique using which object contruction and usages is separated.
 <br>Dependency/Service - A object of a class on which some other class depends
 <br>Client - It depends on the service
@@ -30,6 +33,8 @@ Benefits:
  - Depeloper does not have to manage the object creation
  - Testing becomes easy using mock object.
  - Code becomes more readable.
+ 
+Note: IOC and DI are similar except that IOC is general concept whereas DI is concrete design pattern.
 
 #### Repository
 An interface between database layer and Java layer. 
