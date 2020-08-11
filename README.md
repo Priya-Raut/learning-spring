@@ -1,5 +1,5 @@
 # learning-spring
-A project created to learn basic components of Spring (a popular Java framework) while building a web application. 
+A project created to learn basic components of Spring MVC (a popular Java web framework). 
 
 The project explores the out of box Spring boot solutions with almost no configuration such as 
 <br> 1. Embedded Tomcat server
